@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ product.name }}</title>
+    
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="{% static '../static/styles/index.css' %}" />
+    <link rel="stylesheet" href="{% static '../static/styles/product_detail.css' %}">
+    <link rel="stylesheet" href="{% static '../static/styles/product_list.css' %}">
+  </head>
+
+  <body>
+    <!-- Header section starts-->
+
+    <div class="navbar">
+      <div class="logo">
+        <a href="/"
+          ><img src="{% static '../static/images/logo.png' %}" alt=""
+        /></a>
+        <a href="/"
+          ><h1>Headphoneshop<span>.</span></h1></a
+        >
+      </div>
+      <div class="menu_bar">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li class="nav_menu">
+            <a href="#">Categories &#11167;</a>
+            <ul class="dropdown" id="category">
+              {% for category in categories %}
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='category' filter_value=category.category %}"
+                  >{{ category.category }}s</a
+                >
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+          <li class="nav_menu">
+            <a href="#">Brands &#11167;</a>
+            <ul class="dropdown" id="category">
+              {% for brand in brands %}
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='brand' filter_value=brand.brand %}"
+                  >{{ brand.brand }}</a
+                >
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+          <li class="nav_menu">
+            <a href="#">Price &#11167;</a>
+            <ul class="dropdown" id="price">
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='1000-5000' %}"
+                  >1000-5000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='5000-10000' %}"
+                  >5000-10000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='10000-20000' %}"
+                  >10000-20000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='20000-30000' %}"
+                  >20000-30000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='30000-40000' %}"
+                  >30000-40000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='40000-50000' %}"
+                  >40000-50000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='50000-60000' %}"
+                  >50000-60000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='60000-70000' %}"
+                  >60000-70000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='70000-80000' %}"
+                  >70000-80000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='80000-90000' %}"
+                  >80000-90000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='90000-100000' %}"
+                  >90000-100000</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li><a href="#">Contact</a></li>
+          <li class="nav_menu">
+            <a href="#"><i class="fa-solid fa-user fa-bounce"></i></a>
+            <ul class="dropdown">
+              {% if user.is_authenticated %}
+              <li><a href="{% url 'order' %}">Orders</a></li>
+              <li><a href="{% url 'logout' %}">Logout</a></li>
+              {% else %}
+              <li><a href="{% url 'login' %}">Login</a></li>
+              <li><a href="{% url 'signup' %}">Signup</a></li>
+              {% endif %}
+            </ul>
+          </li>
+          <li class="cart">
+            <a href="{% url 'view_cart' %}"
+              ><i class="fa-solid fa-cart-shopping fa-bounce"
+                ><sup>{{ total_quantity }}</sup></i
+              ></a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- header section ends -->
+
+    <section class="detail">
+      {% block content %}
+      <div class="main_container">
+        <div class="img_container">
+          <div class="imgs">
+            <img src="{{product.image1.url}}" alt="" />
+            <img src="{{product.image2.url}}" alt="" />
+            <img src="{{product.image3.url}}" alt="" />
+            <img src="{{product.image4.url}}" alt="" />
+            <img src="{{product.image5.url}}" alt="" />
+          </div>
+        </div>
+        <div class="big_img">
+          <img src="{{product.image1.url}}" alt="" />
+        </div>
+
+        <div class="product_detail_content">
+          {% if product.launch == 'new' %}
+          <div class="new_word"><p>New</p></div>
+          {% endif %}
+          <div class="brand">{{ product.brand }}</div>
+          <div class="product_name"><h1>{{ product.name }}</h1></div>
+          <div class="type"><p>{{ product.type }}</p></div>
+
+          <hr />
+
+          <div class="price">
+            <p>₹ {{ product.price }}</p>
+            <span>₹ {{ product.offer }}</span>
+          </div>
+
+          <div class="cart">
+            <form method="post">
+              {% csrf_token %}
+              <button type="submit">Add to Cart</button>
+            </form>
+            
+            {% for message in messages %}
+            <p class="message">{{ message }}</p>
+            {% endfor %}
+          </div>
+
+          <div class="ship">
+            <div class="delivery">
+              <p>DELIVERY:</p>
+              <p>Ships in 2-3 days</p>
+              <p>Delivery with in: 10 days</p>
+            </div>
+            <div class="returns">
+              <p>RETURNS AND WARRANTY:</p>
+              <p>7 Day Replacement Guarantee</p>
+              <p>7 Day Easy Exchange</p>
+              <p>1 Year Warranty</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="warranty">
+        
+        <img src="../static/images/Screenshot 2023-12-09 104747.png" alt="" />
+        <div class="time">
+        <h1>1 Year Warranty</h1>
+        <p>
+         
+          Don't sweat it, this
+          <span>{{ product.name }} comes with a 1 Year warranty</span>from 
+          {{ product.brand }} that covers manufacturing defects. All products
+          featured on Headphoneshop are backed by an original manufacturer's
+          warranty.
+        </p>
+      </div>
+      </div>
+      {% endblock %}
+    </section>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Get references to the images and big image elements
+        const images = document.querySelectorAll('.imgs img');
+        const bigImage = document.querySelector('.big_img img');
+    
+        // Keep track of the currently selected image
+        let currentImage;
+    
+        // Add click event listeners to each small image
+        images.forEach(function (smallImage) {
+          smallImage.addEventListener('click', function () {
+            // Reset border for the previously selected image
+            if (currentImage) {
+              currentImage.style.border = 'none';
+            }
+    
+            // Set the source of the big image to the clicked small image
+            smallImage.style.border = '2px solid orange';
+            bigImage.src = smallImage.src;
+    
+            // Update the currently selected image
+            currentImage = smallImage;
+          });
+        });
+      });
+    </script>
+        <script src="{% static '../static/js/home.js' %}"></script>
+
+    
+  </body>
+</html>

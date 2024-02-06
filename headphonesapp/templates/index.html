@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>headphoneshop</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="{% static '../static/styles/index.css' %}" />
+    <link rel="stylesheet" href="{% static '../static/styles/product_detail.css' %}">
+    <link rel="stylesheet" href="{% static '../static/styles/product_list.css' %}">
+  </head>
+  <body>
+    <!-- Poleramma Thalli -->
+
+    <!-- Header section starts-->
+
+    <div class="navbar">
+      <div class="logo">
+        <a href="#"
+          ><img src="{% static '../static/images/logo.png' %}" alt=""
+        /></a>
+        <a href="#"
+          ><h1>Headphoneshop<span>.</span></h1></a
+        >
+      </div>
+      <div class="menu_bar">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li class="nav_menu">
+            <a href="#">Categories &#11167;</a>
+            <ul class="dropdown" id="category">
+              {% for category in categories %}
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='category' filter_value=category.category %}"
+                  >{{ category.category }}s</a
+                >
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+          <li class="nav_menu">
+            <a href="#">Brands &#11167;</a>
+            <ul class="dropdown" id="category">
+              {% for brand in brands %}
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='brand' filter_value=brand.brand %}"
+                  >{{ brand.brand }}</a
+                >
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+          <li class="nav_menu">
+            <a href="#">Price &#11167;</a>
+            <ul class="dropdown" id="price">
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='1000-5000' %}"
+                  >1000-5000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='5000-10000' %}"
+                  >5000-10000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='10000-20000' %}"
+                  >10000-20000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='20000-30000' %}"
+                  >20000-30000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='30000-40000' %}"
+                  >30000-40000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='40000-50000' %}"
+                  >40000-50000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='50000-60000' %}"
+                  >50000-60000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='60000-70000' %}"
+                  >60000-70000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='70000-80000' %}"
+                  >70000-80000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='80000-90000' %}"
+                  >80000-90000</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{% url 'product_list' filter_type='price' filter_value='90000-100000' %}"
+                  >90000-100000</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li><a href="#">Contact</a></li>
+          <li class="nav_menu">
+            <a href="#"><i class="fa-solid fa-user fa-bounce"></i></a>
+            <ul class="dropdown">
+              {% if user.is_authenticated %}
+              <li><a href="{% url 'order' %}">Orders</a></li>
+              <li><a href="{% url 'logout' %}">Logout</a></li>
+              {% else %}
+              <li><a href="{% url 'login' %}">Login</a></li>
+              <li><a href="{% url 'signup' %}">Signup</a></li>
+              {% endif %}
+            </ul>
+          </li>
+          <li class="cart">
+            <a href="{% url 'view_cart' %}"
+              ><i class="fa-solid fa-cart-shopping fa-bounce"
+                ><sup>{{ total_quantity }}</sup></i
+              ></a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- header section ends -->
+
+    <!-- home section starts -->
+
+    <div class="home">
+      <div class="quote">
+        {% for message in messages %}
+        <h3>{{ message }}</h3>
+        {% endfor %}
+        <h1>Headphones on, world off.</h1>
+        <p>
+          “<span> Headphones</span>: The gateway to another world.” “<span
+            >Headphones</span
+          >
+          are the perfect escape from the noise of the world.”
+          “<span>Headphones</span>: This is my happy place.”
+        </p>
+      </div>
+    </div>
+
+    <!-- home section ends -->
+
+    <!-- New launches starts -->
+
+    <section class="new_launches">
+      <div class="heading"><h1>New launches</h1></div>
+      <hr />
+      <div class="new">
+        <div class="left_arrow"><i class="fa-solid fa-arrow-left"></i></div>
+        {% for product in new_products %}
+
+        <div class="main">
+          <a href="{% url 'product_detail' product.pk %}">
+            <div class="image">
+              {% if product.launch == 'new' %}
+              <div class="new_word"><p>New</p></div>
+              {% endif %}
+              <div class="img">
+                <a href="{% url 'product_detail' product.pk %}"
+                  ><img
+                    class="product-image"
+                    src="{{product.image1.url}}"
+                    alt=""
+                    onmouseover="changeImage(this, '{{ product.image2.url }}')"
+                    onmouseout="restoreImage(this)"
+                /></a>
+              </div>
+              <div class="about">
+                <a href="{% url 'product_detail' product.pk %}">
+                  <div class="name"><p>{{ product.name }}</p></div>
+                  <div class="des"><p>{{ product.type }}</p></div>
+                  <div class="price">
+                    <p>
+                      ₹ {{ product.price }}<span> ₹ {{ product.offer }}</span>
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+
+        <div class="right_arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="main_video">
+        <div class="video">
+          <video
+            src="{% static '../static/images/Video.mp4' %}"
+            muted
+            autoplay
+            loop
+          ></video>
+        </div>
+        <div class="paragraph">
+          <h1>Like You, We Love Music</h1>
+          <p>
+            And we believe a Headphone is more than just an instrument for
+            sound. It’s the key to a mind-blowing moment of emotion, bringing
+            you closer to your favourite artist, and yourself.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="menu_container">
+        <div class="item">
+          <img src="" alt="" />
+          <p></p>
+        </div>
+        <div class="item">
+          <img src="" alt="" />
+          <p></p>
+        </div>
+        <div class="item">
+          <img src="" alt="" />
+          <p></p>
+        </div>
+        <div class="item">
+          <img src="" alt="" />
+          <p></p>
+        </div>
+        <div class="item">
+          <img src="" alt="" />
+          <p></p>
+        </div>
+        <div class="item">
+          <img src="" alt="" />
+          <p></p>
+        </div>
+        <div class="item">
+          <img src="" alt="" />
+          <p></p>
+        </div>
+        <div class="item">
+          <img src="" alt="" />
+          <p></p>
+        </div>
+      </div>
+    </section>
+
+    <script src="{% static '../static/js/home.js' %}"></script>
+  </body>
+</html>

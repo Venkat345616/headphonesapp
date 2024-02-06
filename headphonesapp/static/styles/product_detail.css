@@ -1,0 +1,133 @@
+.detail {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.main_container {
+  margin-top: 100px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: #fff;
+  padding: 10px;
+  width: 85%;
+  border-radius: 15px;
+  box-shadow: 1px 1px 10px rgb(130, 130, 140);
+
+}
+.main_container .img_container .imgs {
+  display: flex;
+  flex-direction: column;
+}
+.main_container .img_container .imgs img {
+  display: block;
+  width: 80px;
+  border-radius: 10px;
+  padding: 10px;
+}
+.main_container .big_img img {
+  width: 500px;
+}
+.main_container .product_detail_content {
+  display: flex;
+  width: 40%;
+  flex-direction: column;
+}
+.main_container .product_detail_content .new_word {
+  background-color: #4caef7;
+  width: 45px;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 50px;
+}
+.main_container .product_detail_content .brand {
+  color: rgb(117, 116, 116);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.main_container .product_detail_content .product_name {
+  font-size: 25px;
+  color: rgb(55, 52, 52);
+  text-transform: uppercase;
+}
+.main_container .product_detail_content .type {
+  color: rgb(117, 116, 116);
+  font-size: 15px;
+}
+.main_container .product_detail_content .price p {
+  color: #2c18ac;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+.main_container .product_detail_content .price span {
+  color: gray;
+  text-decoration: line-through;
+}
+.main_container .product_detail_content .cart button {
+  background-color: #2c18ac;
+  color: #fff;
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 18px;
+}
+.main_container .product_detail_content .cart button:hover {
+  transform: scale(1.02);
+}
+.main_container .product_detail_content .cart .message {
+  color: #2b254f;
+}
+.main_container .product_detail_content .ship {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 10px;
+  color: rgb(69, 68, 68);
+}
+.main_container .product_detail_content .ship .delivery {
+  background-color: rgb(245, 242, 242);
+  padding: 5px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+.main_container .product_detail_content .ship .returns {
+  background-color: rgb(245, 242, 242);
+  padding: 5px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+.warranty {
+  width: 95%;
+  padding: 20px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 1px 1px 10px rgb(130, 130, 140);
+}
+.warranty img {
+  width: 150px;
+  
+
+}
+.warranty .time p{
+    color: gray;
+    font-size: 14px;
+}
+.warranty .time p span{
+color: rgb(63, 62, 62);
+  font-weight: 600;
+}

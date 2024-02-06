@@ -1,0 +1,218 @@
+<!-- product_list.html -->
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{{ filter_name }}: {{ filter_value }} Products</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static '../static/styles/index.css' %}" />
+    
+    <link rel="stylesheet" href="{% static '../static/styles/product_list.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+          <a href="/"
+            ><img src="{% static '../static/images/logo.png' %}" alt=""
+          /></a>
+          <a href="/"
+            ><h1>Headphoneshop<span>.</span></h1></a
+          >
+        </div>
+        <div class="menu_bar">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li class="nav_menu">
+              <a href="#">Categories &#11167;</a>
+              <ul class="dropdown" id="category">
+                {% for category in categories %}
+                <li>
+                  <a
+                    href="{% url 'product_list' filter_type='category' filter_value=category.category %}"
+                    >{{ category.category }}s</a
+                  >
+                </li>
+                {% endfor %}
+              </ul>
+            </li>
+            <li class="nav_menu">
+              <a href="#">Brands &#11167;</a>
+              <ul class="dropdown" id="category">
+                {% for brand in brands %}
+                <li>
+                  <a
+                    href="{% url 'product_list' filter_type='brand' filter_value=brand.brand %}"
+                    >{{ brand.brand }}</a
+                  >
+                </li>
+                {% endfor %}
+              </ul>
+            </li>
+            <li class="nav_menu">
+              <a href="#">Price &#11167;</a>
+              <ul class="dropdown" id="price">
+                <li>
+                  <a
+                    href="{% url 'product_list' filter_type='price' filter_value='1000-5000' %}"
+                    >1000-5000</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{% url 'product_list' filter_type='price' filter_value='5000-10000' %}"
+                    >5000-10000</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{% url 'product_list' filter_type='price' filter_value='10000-20000' %}"
+                    >10000-20000</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{% url 'product_list' filter_type='price' filter_value='20000-30000' %}"
+                    >20000-30000</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{% url 'product_list' filter_type='price' filter_value='30000-40000' %}"
+                    >30000-40000</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{% url 'product_list' filter_type='price' filter_value='40000-50000' %}"
+                    >40000-50000</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{% url 'product_list' filter_type='price' filter_value='50000-60000' %}"
+                    >50000-60000</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{% url 'product_list' filter_type='price' filter_value='60000-70000' %}"
+                    >60000-70000</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{% url 'product_list' filter_type='price' filter_value='70000-80000' %}"
+                    >70000-80000</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{% url 'product_list' filter_type='price' filter_value='80000-90000' %}"
+                    >80000-90000</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{% url 'product_list' filter_type='price' filter_value='90000-100000' %}"
+                    >90000-100000</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li><a href="#">Contact</a></li>
+            <li class="nav_menu">
+              <a href="#"><i class="fa-solid fa-user fa-bounce"></i></a>
+              <ul class="dropdown">
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'order' %}">Orders</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'signup' %}">Signup</a></li>
+                {% endif %}
+              </ul>
+            </li>
+            <li class="cart">
+              <a href="{% url 'view_cart' %}"
+                ><i class="fa-solid fa-cart-shopping fa-bounce"
+                  ><sup>{{ total_quantity }}</sup></i
+                ></a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+
+    
+
+    {% if brand_image %}
+    <div class="brand_image">
+        <img src="{{ brand_image }}" alt="{{ filter_value }} Brand Image">
+        <h1>{{ filter_value }}</h1>
+    </div>
+        {% endif %}
+
+    {% if filtered_products %}
+    <h1 class="filter_name">{{ filter_value }} Products</h1>
+    
+                
+        
+           
+            <section>
+                
+                <div class="main_container">
+                    {% for product in filtered_products %}
+                    <div class="child_containers">
+                        <a href="{% url 'product_detail' product.pk %}">
+                            <div class="img_container">
+                                {% if product.launch == 'new' %}
+                                <div class="new_word"><p>New</p></div>
+                                 {% endif %}
+                                 <div class="product_img">
+                                    <img
+                                    class="product-image"
+                                    src="{{product.image1.url}}"
+                                    alt=""
+                                    onmouseover="changeImage(this, '{{ product.image2.url }}')"
+                                    onmouseout="restoreImage(this)"
+                                />
+                                 </div>
+                            </div>
+                            <div class="content_container">
+                                <div class="product_name"><p>{{ product.name }}</p></div>
+                                <div class="product_type"><p>{{ product.type }}</p></div>
+                                <div class="product_price"><p>₹{{product.price}} <span>₹{{product.offer}}</span></p></div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+          
+        
+    {% else %}
+        <p>No products available for this {{ filter_name.lower }}.</p>
+    {% endif %}
+    <script src="{% static '../static/js/home.js' %}"></script>
+    
+
+</body>
+</html>
