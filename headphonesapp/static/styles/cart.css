@@ -1,5 +1,6 @@
 .cart_container {
   margin-top: 55px;
+  margin-bottom: 100px;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;

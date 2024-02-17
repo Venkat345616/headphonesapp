@@ -244,26 +244,20 @@
     </section>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        // Get references to the images and big image elements
         const images = document.querySelectorAll('.imgs img');
         const bigImage = document.querySelector('.big_img img');
     
-        // Keep track of the currently selected image
         let currentImage;
     
-        // Add click event listeners to each small image
         images.forEach(function (smallImage) {
           smallImage.addEventListener('click', function () {
-            // Reset border for the previously selected image
             if (currentImage) {
               currentImage.style.border = 'none';
             }
     
-            // Set the source of the big image to the clicked small image
             smallImage.style.border = '2px solid orange';
             bigImage.src = smallImage.src;
     
-            // Update the currently selected image
             currentImage = smallImage;
           });
         });

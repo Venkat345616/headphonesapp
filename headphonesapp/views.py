@@ -48,7 +48,6 @@ def product_detail(request, pk):
             return redirect('login')
         user_cart, created = Cart.objects.get_or_create(user=request.user)
 
-        # Check if the product is already in the cart
         cart_item, item_created = CartItem.objects.get_or_create(
             user=request.user,
             product=product
@@ -215,21 +214,18 @@ def product_list(request, filter_type, filter_value):
         cart_items = user_cart.items.all()
         total_quantity = sum(item.quantity for item in cart_items)
     
-    brand_image_url = None  # Initialize the variable outside the conditional block
+    brand_image_url = None 
 
     if filter_type == 'category':
         filtered_products = products.objects.filter(category=filter_value)
     elif filter_type == 'brand':
         filtered_products = products.objects.filter(brand=filter_value)
-        # Get the brand image URL only if there are filtered products
         brand_image_url = products.objects.filter(brand=filter_value).first().brand_image.url if filtered_products else None
     elif filter_type == 'price':
-        # Assuming price is stored as a field in your Product model
         price_range = filter_value.split('-')
         min_price, max_price = int(price_range[0]), int(price_range[1])
         filtered_products = products.objects.filter(price__range=(min_price, max_price))
     else:
-        # Handle other filter types or provide a default case
         filtered_products = []
 
     context = {'filtered_products': filtered_products,
